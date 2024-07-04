@@ -1,4 +1,22 @@
-﻿using System;
+﻿// ************************************************************************
+// Practica 09
+// Josue Chicaiza - Daniel Tapia
+// Fecha de realización: 03/07/2024
+// Fecha de entrega: 10/07/2024
+// Resultados:
+// * Se logra ejecutar la aplicacion de Asignatura, al modificar las rutas se tiene como default el controlador Asignatura.
+// Se verificar la funcionalidad del CRUD, las validaciones funcionan bien, por ejemplo, si se quiere agregar mas de 100 
+// caracteres en nombre aparecera un mensaje a la derecha del imput indicando el error y no se podra agregar la asignatura.
+// * En la prueba de aplicacion se modifica la URL de la accion Detalle en la cual se quita el argumento de la ID 
+// no va a funcionar ya que el metodo de accion Detalle recibe como argumento el id y sin el argumento en la URL no
+// va ser posible ejecutar el metodo de accion.
+// * Tambien se modifico el URL para que la solicitud de la accion Detalle/1000, esto tampcoo funciona ya que este ID no 
+// existe en la base de datos y no sera posible encontrar.
+// *
+// Conclusiones:
+// Recomendaciones:
+// ************************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
