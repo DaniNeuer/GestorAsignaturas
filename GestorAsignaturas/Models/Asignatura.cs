@@ -21,31 +21,72 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace GestorAsignaturas.Models
 {
     public class Asignatura
     {
-        [Key] public int  ID { get; set;  }
+        [Key]
+        public int ID { get; set; }
 
-        [Required(ErrorMessage ="El nombre de la asignatura es obligatorio.")]
-        [StringLength(100,ErrorMessage ="El nombre de la asignatura no puede superar los 100 caracteres.")]
+        [Required(ErrorMessage = "El nombre de la asignatura es obligatorio.")]
+        [StringLength(100, ErrorMessage = "El nombre de la asignatura no puede superar los 100 caracteres.")]
         public string Nombre { get; set; }
 
-        [Required(ErrorMessage = "El codigo de la asignatura es obligatorio.")]
-        [StringLength(7, ErrorMessage = "El codigo de la asignatura no puede superar los 7 caracteres.")]
+        [Required(ErrorMessage = "El código de la asignatura es obligatorio.")]
+        [StringLength(7, ErrorMessage = "El código de la asignatura no puede superar los 7 caracteres.")]
         public string Codigo { get; set; }
 
-        [Required(ErrorMessage = "El numero de creditos de la asignatura es obligatorio.")]
-        [Range(0,15, ErrorMessage = "El numero de creditos debe estar entre 0 y 15.")]
+        [Required(ErrorMessage = "El número de créditos de la asignatura es obligatorio.")]
+        [Range(0, 15, ErrorMessage = "El número de créditos debe estar entre 0 y 15.")]
         public int Creditos { get; set; }
 
-        [Required(ErrorMessage = "El numero de horas de la asignatura es obligatorio.")]
-        [Range(1, 45, ErrorMessage = "El numero de horas debe estar entre 1 y 45.")]
-        public int Horas { get; set; }
+        [Required(ErrorMessage = "El número de horas de clase directa (CD) es obligatorio.")]
+        [Range(1, 45, ErrorMessage = "El número de horas de clase directa debe estar entre 1 y 45.")]
+        public int CD { get; set; } = 1;
 
+        [Range(0, 45, ErrorMessage = "El número de horas de clase práctica debe estar entre 0 y 45.")]
+        public int CP { get; set; }
 
+        [Required(ErrorMessage = "El número de horas de aprendizaje autónomo (AA) es obligatorio.")]
+        [Range(1, 45, ErrorMessage = "El número de horas de aprendizaje autónomo debe estar entre 1 y 45.")]
+        public int AA { get; set; } = 1;
 
+        [NotMapped]
+        public int Horas
+        {
+            get { return CD + CP + AA; }
+        }
+
+        public string Area { get; set; } = "sin área";
+
+        public Asignatura()
+        {
+            // Establecer valores predeterminados
+            CP = 0;
+        }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var errors = new List<ValidationResult>();
+            if (Creditos == 0 && CD < 2)
+            {
+                errors.Add(new ValidationResult("El número de horas de clase directa debe ser al menos 2 cuando los créditos son 0.", new[] { "CD" }));
+            }
+            else if (Creditos > 0)
+            {
+                int totalHoras = Creditos * 3;
+                if (Horas != totalHoras)
+                {
+                    errors.Add(new ValidationResult($"El número total de horas ({Horas}) no coincide con el número de créditos multiplicado por 3 ({totalHoras}).", new[] { "Horas" }));
+                }
+            }
+            return errors;
+        }
     }
+
+
+
 }

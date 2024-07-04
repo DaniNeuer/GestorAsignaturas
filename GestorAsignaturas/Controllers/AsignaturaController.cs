@@ -31,15 +31,16 @@ namespace GestorAsignaturas.Controllers
             }
             return View(asignatura);
         }
-        //GET: Asignatura/Crear
+        // GET: Asignatura/Crear
         public ActionResult Crear()
         {
             return View();
         }
-        //POST: Asignatura/Crear
+
+        // POST: Asignatura/Crear
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Crear([Bind(Include ="ID,Nombre,Codigo,Creditos,Horas")] Asignatura asignatura)
+        public ActionResult Crear([Bind(Include = "ID,Nombre,Codigo,Creditos,CD,CP,AA,Area")] Asignatura asignatura)
         {
             if (ModelState.IsValid)
             {
@@ -49,7 +50,7 @@ namespace GestorAsignaturas.Controllers
             }
             return View(asignatura);
         }
-        //GET: Asignatura/Editar/5
+        // GET: Asignatura/Editar/5
         public ActionResult Editar(int? id)
         {
             if (id == null)
@@ -57,25 +58,27 @@ namespace GestorAsignaturas.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Asignatura asignatura = bd.Asignaturas.Find(id);
-            if(asignatura == null)
+            if (asignatura == null)
             {
                 return HttpNotFound();
             }
             return View(asignatura);
         }
-        //POST: Asignatura/Editar/5
+
+        // POST: Asignatura/Editar/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Editar([Bind(Include ="ID,nombre,Codigo,Creditos,Horas")] Asignatura asignatura)
+        public ActionResult Editar([Bind(Include = "ID,Nombre,Codigo,Creditos,CD,CP,AA,Area")] Asignatura asignatura)
         {
             if (ModelState.IsValid)
             {
-                bd.Entry(asignatura).State=EntityState.Modified;
+                bd.Entry(asignatura).State = EntityState.Modified;
                 bd.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(asignatura);
         }
+
         //GET: Asignatura/Borrar/5
         public ActionResult Borrar(int? id)
         {

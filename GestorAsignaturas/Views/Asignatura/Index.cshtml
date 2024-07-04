@@ -1,5 +1,4 @@
-﻿
-@model IEnumerable<GestorAsignaturas.Models.Asignatura>
+﻿@model IEnumerable<GestorAsignaturas.Models.Asignatura>
 @{
     ViewBag.Title = "Listado de Asignaturas";
 }
@@ -7,54 +6,70 @@
 <p>
     @Html.ActionLink("Crear Nueva Asignatura", "Crear")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Codigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Creditos)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Horas)
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
+<table class="table table-striped">
+    <thead>
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Creditos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Horas)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Editar", new
-                {
-                    id
-               = item.ID
-                }) |
-                @Html.ActionLink("Ver", "Detalles", new
-                {
-                    id =
-               item.ID
-                }) |
-                @Html.ActionLink("Borrar", "Borrar", new
-                {
-                    id
-               = item.ID
-                })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Creditos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Horas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Area)
+            </th>
+            <th></th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Creditos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Horas)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Area)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Editar", new { id = item.ID }) |
+                    @Html.ActionLink("Ver", "Detalles", new { id = item.ID }) |
+                    @Html.ActionLink("Borrar", "Borrar", new { id = item.ID })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
