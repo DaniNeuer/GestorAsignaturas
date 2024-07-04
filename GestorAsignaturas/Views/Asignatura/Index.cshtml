@@ -1,0 +1,60 @@
+﻿
+@model IEnumerable<GestorAsignaturas.Models.Asignatura>
+@{
+    ViewBag.Title = "Listado de Asignaturas";
+}
+<h2>Listado de Asignaturas</h2>
+<p>
+    @Html.ActionLink("Crear Nueva Asignatura", "Crear")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Creditos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Horas)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Creditos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Horas)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", new
+                {
+                    id
+               = item.ID
+                }) |
+                @Html.ActionLink("Ver", "Detalles", new
+                {
+                    id =
+               item.ID
+                }) |
+                @Html.ActionLink("Borrar", "Borrar", new
+                {
+                    id
+               = item.ID
+                })
+            </td>
+        </tr>
+    }
+</table>

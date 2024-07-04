@@ -63,7 +63,7 @@ namespace GestorAsignaturas.Controllers
             }
             return View(asignatura);
         }
-        //POsT: Asignatura/Editar/5
+        //POST: Asignatura/Editar/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Editar([Bind(Include ="ID,nombre,Codigo,Creditos,Horas")] Asignatura asignatura)
@@ -75,6 +75,38 @@ namespace GestorAsignaturas.Controllers
                 return RedirectToAction("Index");
             }
             return View(asignatura);
+        }
+        //GET: Asignatura/Borrar/5
+        public ActionResult Borrar(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Asignatura asignatura = bd.Asignaturas.Find(id);
+            if(asignatura == null)
+            {
+                return HttpNotFound();
+            }
+            return View(asignatura);
+        }
+        // POST: Asignatura/Borrar/5
+        [HttpPost, ActionName("Borrar")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ConfirmarBorrar(int id)
+        {
+            Asignatura asignatura = bd.Asignaturas.Find(id);
+            bd.Asignaturas.Remove(asignatura);
+            bd.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if(disposing)
+            {
+                bd.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }
